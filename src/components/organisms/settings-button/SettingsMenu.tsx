@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ThemeSettings from './setting-sections/theme-settings';
 import { SettingSection, settingSections } from './types';
 
 interface IProps {
@@ -17,11 +18,11 @@ function SettingsMenu(props: IProps) {
 
   return (
     <div className="grid grid-cols-12">
-      <ul className="col-span-3 flex flex-col">
+      <ul className="col-span-3 flex flex-col border-r h-[500px]">
         {settingSections.map((x) => (
           <li
             className={`
-            border-r border-b last:border-b-0
+            
             h-10 flex items-center px-4 text-md font-bold hover:dark:bg-p-700 hover:dark:text-50 cursor-pointer transition-colors 
             ${x === activeMenu ? 'dark:bg-p-800 bg-p-400' : ''}`}
             key={x}
@@ -31,7 +32,7 @@ function SettingsMenu(props: IProps) {
           </li>
         ))}
       </ul>
-      <div className="col-span-9 p-2">{activeMenu}</div>
+      <div className="col-span-9 p-4">{activeMenu === 'theme' ? <ThemeSettings /> : null}</div>
     </div>
   );
 }

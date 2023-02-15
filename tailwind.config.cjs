@@ -4,8 +4,16 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      keyframes: {
+        wave: {
+          '0%': { transform: 'rotate(0.0deg)' },
+          '50%': { transform: 'rotate(10deg)' },
+          '100%': { transform: 'rotate(-10.0deg)' },
+        },
+      },
       animation: {
         'spin-slow': 'spin 20s linear infinite',
+        wave: 'wave 15s ease-in-out infinite',
       },
       colors: {
         'p-50': 'rgb(var(--p-50) / <alpha-value>)',
