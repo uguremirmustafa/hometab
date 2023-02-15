@@ -1,3 +1,98 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  /* colors */
+
+  [data-primary-color='pink-salmon'] {
+    --p-50: 255 241 242;
+    --p-100: 255 228 231;
+    --p-200: 255 204 212;
+    --p-300: 254 147 163;
+    --p-400: 253 111 136;
+    --p-500: 246 61 97;
+    --p-600: 228 26 76;
+    --p-700: 192 16 64;
+    --p-800: 161 16 60;
+    --p-900: 138 17 57;
+  }
+  [data-secondary-color='pink-salmon'] {
+    --s-50: 255 241 242;
+    --s-100: 255 228 231;
+    --s-200: 255 204 212;
+    --s-300: 254 147 163;
+    --s-400: 253 111 136;
+    --s-500: 246 61 97;
+    --s-600: 228 26 76;
+    --s-700: 192 16 64;
+    --s-800: 161 16 60;
+    --s-900: 138 17 57;
+  }
+  [data-primary-color='chestnut-rose'] {
+    --p-50: 252 244 244;
+    --p-100: 250 230 230;
+    --p-200: 247 209 210;
+    --p-300: 240 177 178;
+    --p-400: 229 132 133;
+    --p-500: 212 82 84;
+    --p-600: 194 64 66;
+    --p-700: 163 50 52;
+    --p-800: 135 45 46;
+    --p-900: 113 43 44;
+  }
+  [data-secondary-color='chestnut-rose'] {
+    --s-50: 252 244 244;
+    --s-100: 250 230 230;
+    --s-200: 247 209 210;
+    --s-300: 240 177 178;
+    --s-400: 229 132 133;
+    --s-500: 212 82 84;
+    --s-600: 194 64 66;
+    --s-700: 163 50 52;
+    --s-800: 135 45 46;
+    --s-900: 113 43 44;
+  }
+
+  /* elements */
+  * {
+    @apply dark:text-p-100 text-p-800;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply dark:text-p-50 text-p-900 font-bold;
+  }
+  h1 {
+    @apply text-2xl;
+  }
+  h2 {
+    @apply text-xl;
+  }
+  h3 {
+    @apply text-lg;
+  }
+  h5,
+  h6 {
+    @apply text-sm;
+  }
+  /* classes */
+  .border,
+  .border-r,
+  .border-l,
+  .border-t,
+  .border-b,
+  .border-x,
+  .border-y {
+    @apply border-p-400 dark:border-p-200;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply bg-p-500 font-semibold px-4 py-2 rounded;
+  }
+}
