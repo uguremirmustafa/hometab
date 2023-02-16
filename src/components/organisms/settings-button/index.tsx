@@ -14,9 +14,9 @@ function SettingsButton() {
       maxWidth: 'max-w-3xl',
     });
   }
-  useEffect(() => {
-    openSettings();
-  }, []);
+  // useEffect(() => {
+  //   openSettings();
+  // }, []);
 
   return (
     <>

@@ -1,14 +1,5 @@
+import { Status, Todo } from '@src/types';
 import { Dexie } from 'dexie';
-
-interface Todo {
-  id?: number;
-  name: string;
-  statusId: number;
-}
-interface Status {
-  id?: number;
-  name: string;
-}
 
 class MyAppDatabase extends Dexie {
   // Declare implicit table properties.
@@ -29,6 +20,13 @@ class MyAppDatabase extends Dexie {
 export const db = new MyAppDatabase();
 
 export const todoTable = db.todo;
+todoTable.bulkAdd([
+  { id: 1, name: 'Finish hometab', statusId: 2 },
+  { id: 2, name: 'Add search functionality', statusId: 1 },
+  { id: 3, name: 'Clean up the kitchen', statusId: 1 },
+  { id: 4, name: 'Buy a present to Feyza', statusId: 3 },
+]);
+
 export const statusTable = db.status;
 statusTable.bulkAdd([
   { name: 'not started', id: 1 },

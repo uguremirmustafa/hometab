@@ -37,7 +37,7 @@ module.exports = {
         's-800': 'rgb(var(--s-800) / <alpha-value>)',
         's-900': 'rgb(var(--s-900) / <alpha-value>)',
         dark1: '#1F2937',
-        dark2: '#444444',
+        dark2: '#334155',
         light1: '#ffffff',
         light2: '#cccccc',
       },

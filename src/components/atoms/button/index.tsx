@@ -1,13 +1,14 @@
+import { Size, Variant } from '@src/types';
 import React from 'react';
 
 interface IProps extends React.HTMLAttributes<HTMLButtonElement> {
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'text' | 'contained' | 'outlined';
+  size?: Size;
+  variant?: Variant;
 }
 function Button(props: IProps) {
   const { children, size = 'md', variant = 'contained', className, ...rest } = props;
 
-  const cls = `${className ?? ''} btn btn-${size} btn-${variant}`;
+  const cls = `btn btn-${size} btn-${variant} ${className ?? ''}`;
 
   return (
     <button className={cls} {...rest}>

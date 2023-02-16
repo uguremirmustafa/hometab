@@ -24,7 +24,7 @@ function RadioButton(props: RadionButtonProps) {
         onChange={onChange}
         checked={checked}
       />
-      <label htmlFor={id} className="ml-2 text-md cursor-pointer">
+      <label htmlFor={id} className="ml-3 text-md cursor-pointer">
         {label}
       </label>
     </div>
