@@ -30,22 +30,23 @@ function TodoColumn(props: IProps) {
   if (id === 1) {
     badgeClasses = 'bg-slate-100 dark:bg-slate-200';
     columnClasses = 'bg-slate-100/25 dark:bg-slate-200/25';
-    todoClasses =
-      'dark:bg-slate-200/50 dark:hover:bg-slate-400/50 border border-gray-200 dark:border-slate-200';
+    todoClasses = 'dark:bg-slate-300/50 border border-gray-200 dark:border-slate-200';
   } else if (id == 2) {
     badgeClasses = 'bg-amber-100 dark:bg-amber-200';
     columnClasses = 'bg-yellow-100/25 dark:bg-yellow-200/25';
-    todoClasses =
-      'dark:bg-yellow-200/50 dark:hover:bg-yellow-400/50 border border-gray-200 dark:border-yellow-200';
+    todoClasses = 'dark:bg-yellow-300/50 border border-gray-200 dark:border-yellow-200';
   } else {
     badgeClasses = 'bg-emerald-100 dark:bg-emerald-200';
     columnClasses = 'bg-emerald-100/25 dark:bg-emerald-200/25';
-    todoClasses =
-      'dark:bg-emerald-200/50 dark:hover:bg-emerald-400/50 border border-gray-200 dark:border-emerald-200';
+    todoClasses = 'dark:bg-emerald-300/50 border border-gray-200 dark:border-emerald-200';
   }
 
-  function saveTodo(text: string, todoId: Todo['id']) {
-    console.log(text, todoId);
+  function saveTodo(text: string, todo: Todo) {
+    todoTable.put({ ...todo, name: text }, todo.id);
+  }
+
+  function deleteTodo(todoId: Todo['id']) {
+    console.log(todoId);
   }
 
   return (
@@ -60,14 +61,12 @@ function TodoColumn(props: IProps) {
           return (
             <Editable
               key={todo?.id}
-              className={`${todoClasses} bg-white hover:bg-gray-50 text-slate-900 dark:text-white`}
+              className={`${todoClasses}  bg-white hover:bg-gray-50 text-slate-900 dark:text-white `}
               value={todo.name}
+              handleDelete={() => deleteTodo(todo?.id)}
               onSave={(text: string) => {
-                saveTodo(text, todo?.id);
+                saveTodo(text, todo);
               }}
-              //   onChange={(e) => {
-              //     console.log(e.target.value);
-              //   }}
             />
           );
         })}
