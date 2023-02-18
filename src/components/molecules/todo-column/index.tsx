@@ -1,3 +1,4 @@
+import { AddIcon } from '@src/assets/icons';
 import Badge from '@src/components/atoms/badge';
 import { todoTable } from '@src/lib/db';
 import { Status, Todo } from '@src/types';
@@ -28,17 +29,20 @@ function TodoColumn(props: IProps) {
   let columnClasses = '';
   let todoClasses = '';
   if (id === 1) {
-    badgeClasses = 'bg-slate-100 dark:bg-slate-200';
-    columnClasses = 'bg-slate-100/25 dark:bg-slate-200/25';
-    todoClasses = 'dark:bg-slate-300/50 border border-gray-200 dark:border-slate-200';
+    badgeClasses = 'bg-fc-100 dark:bg-fc-200';
+    columnClasses = 'bg-fc-100/25 dark:bg-fc-200/25';
+    todoClasses = 'dark:bg-fc-300/50 border border-fc-200 dark:border-fc-200';
+    // badgeClasses = 'bg-slate-100 dark:bg-slate-200';
+    // columnClasses = 'bg-slate-100/25 dark:bg-slate-200/25';
+    // todoClasses = 'dark:bg-slate-300/50 border border-gray-200 dark:border-slate-200';
   } else if (id == 2) {
-    badgeClasses = 'bg-amber-100 dark:bg-amber-200';
-    columnClasses = 'bg-yellow-100/25 dark:bg-yellow-200/25';
-    todoClasses = 'dark:bg-yellow-300/50 border border-gray-200 dark:border-yellow-200';
+    badgeClasses = 'bg-sc-100 dark:bg-sc-200';
+    columnClasses = 'bg-sc-100/25 dark:bg-sc-200/25';
+    todoClasses = 'dark:bg-sc-300/50 border border-gray-200 dark:border-sc-200';
   } else {
-    badgeClasses = 'bg-emerald-100 dark:bg-emerald-200';
-    columnClasses = 'bg-emerald-100/25 dark:bg-emerald-200/25';
-    todoClasses = 'dark:bg-emerald-300/50 border border-gray-200 dark:border-emerald-200';
+    badgeClasses = 'bg-tc-100 dark:bg-tc-200';
+    columnClasses = 'bg-tc-100/25 dark:bg-tc-200/25';
+    todoClasses = 'dark:bg-tc-300/50 border border-gray-200 dark:border-tc-200';
   }
 
   function saveTodo(text: string, todo: Todo) {
@@ -46,17 +50,27 @@ function TodoColumn(props: IProps) {
   }
 
   function deleteTodo(todoId: Todo['id']) {
-    console.log(todoId);
+    todoTable.delete(todoId as number);
+  }
+
+  function addTodo() {
+    todoTable.add({ name: 'Untitled', statusId: column.id as Todo['statusId'] });
   }
 
   return (
     <div
-      className={`min-h-[200px] rounded p-2 shadow opacity-95 hover:opacity-100 transition-opacity ${columnClasses}`}
+      className={` rounded p-2 shadow opacity-95 hover:opacity-100 transition-opacity ${columnClasses}`}
     >
-      <Badge className={`${badgeClasses} text-slate-900 shadow-sm hover:shadow-md transition`}>
-        {name}
-      </Badge>
-      <div className="flex flex-col gap-2 my-3">
+      <div className="flex items-center justify-between">
+        <Badge className={`${badgeClasses} text-slate-900 shadow-sm hover:shadow-md transition`}>
+          {name}
+        </Badge>
+        <button onClick={addTodo} className="p-[2px] dark:hover:bg-slate-400/50">
+          <AddIcon size={18} />
+        </button>
+      </div>
+
+      <div className="flex flex-col gap-2 my-2">
         {todos.map((todo) => {
           return (
             <Editable
@@ -71,6 +85,13 @@ function TodoColumn(props: IProps) {
           );
         })}
       </div>
+
+      <button
+        onClick={addTodo}
+        className="p-2 w-full flex gap-2 dark:hover:bg-slate-400/50 hover:bg-slate-100"
+      >
+        <AddIcon size={18} /> <span>New</span>
+      </button>
     </div>
   );
 }

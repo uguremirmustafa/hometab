@@ -17,13 +17,19 @@ const SvgIcon = (props: IProps) => {
       viewBox="0 0 24 24"
       width={size}
       height={size}
-      className={`dark:fill-p-50 fill-p-900 ${className}`}
+      className={`dark:fill-slate-100 fill-slate-900 ${className}`}
     >
       {children}
     </svg>
   );
 };
 
+export const AddIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" />
+  </SvgIcon>
+);
 export const DeleteIcon = (props: Icon) => (
   <SvgIcon {...props}>
     <path fill="none" d="M0 0h24v24H0z" />

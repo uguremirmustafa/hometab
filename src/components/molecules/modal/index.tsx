@@ -22,7 +22,7 @@ function Modal() {
     >
       <div
         ref={ref}
-        className={`z-20 relative top-40 w-full h-min ${
+        className={`z-20 relative top-20 w-full h-min ${
           modal?.maxWidth ?? 'max-w-3xl'
         } rounded dark:bg-dark1 bg-light1 shadow-lg`}
       >
@@ -33,7 +33,7 @@ function Modal() {
             onClick={toggle}
             className="absolute top-2 right-2 h-8 w-8 flex items-center justify-center rounded leading-none"
           >
-            <CloseIcon className="dark:fill-p-50 fill-p-900" />
+            <CloseIcon className="dark:fill-slate-50 fill-slate-900" />
           </button>
         </div>
         <div>{modal?.content}</div>

@@ -22,9 +22,8 @@ function SettingsMenu(props: IProps) {
         {settingSections.map((x) => (
           <li
             className={`
-            
-            h-10 flex items-center px-4 text-md font-bold hover:dark:bg-p-700 hover:dark:text-50 cursor-pointer transition-colors 
-            ${x === activeMenu ? 'dark:bg-p-800 bg-p-400' : ''}`}
+            h-10 flex items-center px-4 text-md font-bold hover:dark:bg-pc-400/50 hover:bg-pc-300/50 hover:dark:text-pc-50 hover:text-pc-800 cursor-pointer transition-colors 
+            ${x === activeMenu ? 'dark:bg-pc-500/50 bg-pc-500/50' : ''}`}
             key={x}
             onClick={() => changeActiveMenu(x)}
           >

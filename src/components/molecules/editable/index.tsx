@@ -48,7 +48,7 @@ function Editable(props: IProps) {
   }, [mode, !!el]);
 
   const btnCls =
-    'p-[3px] shadow-md overflow-hidden dark:bg-slate-600 dark:hover:bg-slate-600/75 bg-slate-300/50 hover:bg-slate-400/50 transition-all cursor-pointer';
+    'p-[3px] shadow-md overflow-hidden dark:bg-slate-600 dark:hover:bg-slate-600/75 bg-slate-300/50 hover:bg-slate-400/50 transition-all cursor-pointer rounded-none';
 
   return (
     <div className="relative group">

@@ -1,4 +1,5 @@
-import { Status, Todo } from '@src/types';
+import { ColorName } from '@src/components/organisms/settings-button/setting-sections/theme-settings/types';
+import { Setting, Status, Todo } from '@src/types';
 import { Dexie } from 'dexie';
 
 class MyAppDatabase extends Dexie {
@@ -6,12 +7,14 @@ class MyAppDatabase extends Dexie {
   // (just to inform Typescript. Instanciated by Dexie in stores() method)
   todo!: Dexie.Table<Todo, number>; // number = type of the primkey
   status!: Dexie.Table<Status, number>; // number = type of the primkey
+  setting!: Dexie.Table<Setting, number>; // number = type of the primkey
 
   constructor() {
     super('MyAppDatabase');
     this.version(1).stores({
       todo: '++id,name,statusId',
       status: '++id,name',
+      setting: '++id,name,description,value,type',
       //...other tables goes here...
     });
   }
@@ -33,3 +36,12 @@ statusTable.bulkAdd([
   { name: 'in progress', id: 2 },
   { name: 'done', id: 3 },
 ]);
+
+export const settingsTable = db.setting;
+const colors: Setting<ColorName>[] = [
+  { id: 1, name: 'todo_col_1_clr', value: 'cerise', type: 'color' },
+  { id: 2, name: 'todo_col_2_clr', value: 'asparagus', type: 'color' },
+  { id: 3, name: 'todo_col_3_clr', value: 'salomie', type: 'color' },
+  { id: 4, name: 'pc', value: 'turquoise-blue', type: 'color' },
+];
+settingsTable.bulkAdd(colors);

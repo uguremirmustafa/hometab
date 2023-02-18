@@ -1,36 +1,58 @@
-import RadioGroup from '@src/components/atoms/radio-group';
-import useLocalState from '@src/hooks/useLocalState';
-import React, { ComponentProps, useEffect } from 'react';
+import ColorSelector from '@src/components/molecules/color-selector';
+import { useSettings } from '@src/components/wrappers/settings-wrapper/SettingsWrapper';
+import { settingsTable } from '@src/lib/db';
+import { Setting } from '@src/types';
 import { ColorName, colors } from './types';
 
 function ThemeSettings() {
-  const [primary, setPrimary] = useLocalState<ColorName>('hpc', 'chestnut-rose');
-  const [secondary, setSecondary] = useLocalState<ColorName>('hsc', 'pink-salmon');
+  const settings = useSettings();
+  const colorSettings = settings.colorSettings;
+  const pcColorSetting = colorSettings?.pc as Setting<ColorName>;
+  const fcColorSetting = colorSettings?.todo_col_1_clr as Setting<ColorName>;
+  const scColorSetting = colorSettings?.todo_col_2_clr as Setting<ColorName>;
+  const tcColorSetting = colorSettings?.todo_col_3_clr as Setting<ColorName>;
 
-  useEffect(() => {
-    if (window) {
-      window.document.documentElement.setAttribute('data-primary-color', primary);
-      window.document.documentElement.setAttribute('data-secondary-color', secondary);
-    }
-  }, [primary, secondary]);
+  function setPrimaryColor(color: ColorName) {
+    settingsTable.update(pcColorSetting.id as number, { value: color });
+  }
+  function setFirstColumnColor(color: ColorName) {
+    settingsTable.update(fcColorSetting.id as number, { value: color });
+  }
+  function setSecondColumnColor(color: ColorName) {
+    settingsTable.update(scColorSetting.id as number, { value: color });
+  }
+  function setThirdColumnColor(color: ColorName) {
+    settingsTable.update(tcColorSetting.id as number, { value: color });
+  }
 
   return (
     <div>
-      <RadioGroup<ColorName>
-        label="Select primary color"
-        options={getRadioOptions(colors, 'primary')}
-        value={primary}
-        setValue={setPrimary}
+      <ColorSelector
+        label="accent color"
+        colors={colors}
+        selectedColor={pcColorSetting.value}
+        setSelectedColor={setPrimaryColor}
+      />
+      <ColorSelector
+        label="not-started column"
+        colors={colors}
+        selectedColor={fcColorSetting.value}
+        setSelectedColor={setFirstColumnColor}
+      />
+      <ColorSelector
+        label="in-progress column"
+        colors={colors}
+        selectedColor={scColorSetting.value}
+        setSelectedColor={setSecondColumnColor}
+      />
+      <ColorSelector
+        label="done column"
+        colors={colors}
+        selectedColor={tcColorSetting.value}
+        setSelectedColor={setThirdColumnColor}
       />
     </div>
   );
 }
 
 export default ThemeSettings;
-
-const getRadioOptions = (
-  colors: readonly ColorName[],
-  colorType: 'primary' | 'secondary'
-): ComponentProps<typeof RadioGroup>['options'] => {
-  return colors.map((c) => ({ id: `${colorType}-${c}`, label: c, value: c }));
-};
