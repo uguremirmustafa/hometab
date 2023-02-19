@@ -5,4 +5,6 @@ export interface ModalProps {
   title?: string;
   content?: ReactNode;
   maxWidth?: string;
+  type?: 'modal' | 'sidebar';
+  maxHeight?: string;
 }

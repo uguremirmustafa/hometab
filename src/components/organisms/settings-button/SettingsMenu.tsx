@@ -17,8 +17,8 @@ function SettingsMenu(props: IProps) {
   }
 
   return (
-    <div className="grid grid-cols-12">
-      <ul className="col-span-3 flex flex-col border-r h-[500px]">
+    <div className="grid grid-cols-12 h-[calc(100vh_-_48px)]">
+      <ul className="col-span-3 flex flex-col border-r">
         {settingSections.map((x) => (
           <li
             className={`
