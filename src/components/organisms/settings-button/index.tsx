@@ -16,11 +16,11 @@ function SettingsButton() {
       maxWidth: 'max-w-4xl',
     });
   }
-  useEffect(() => {
-    if (colorSettings?.pc?.id) {
-      openSettings();
-    }
-  }, [colorSettings?.pc?.id]);
+  // useEffect(() => {
+  //   if (colorSettings?.pc?.id) {
+  //     openSettings();
+  //   }
+  // }, [colorSettings?.pc?.id]);
 
   return (
     <button

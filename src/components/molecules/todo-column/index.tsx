@@ -2,26 +2,17 @@ import { AddIcon } from '@src/assets/icons';
 import Badge from '@src/components/atoms/badge';
 import { todoTable } from '@src/lib/db';
 import { Status, Todo } from '@src/types';
-import { useLiveQuery } from 'dexie-react-hooks';
 import Editable from '../editable';
+import { Droppable, Draggable } from 'react-beautiful-dnd';
+import classNames from 'classnames';
 
 interface IProps {
   column: Status;
+  todos: Todo[];
 }
 
 function TodoColumn(props: IProps) {
-  const { column } = props;
-  const todos = useLiveQuery(
-    async () => {
-      const todos = await todoTable
-        .where('statusId')
-        .equals(column.id as number)
-        .toArray();
-      return todos;
-    },
-    [column?.id],
-    []
-  );
+  const { column, todos } = props;
 
   const { name, id } = column;
 
@@ -32,9 +23,6 @@ function TodoColumn(props: IProps) {
     badgeClasses = 'bg-fc-100 dark:bg-fc-200';
     columnClasses = 'bg-fc-100/25 dark:bg-fc-200/25';
     todoClasses = 'dark:bg-fc-300/50 border border-fc-200 dark:border-fc-200';
-    // badgeClasses = 'bg-slate-100 dark:bg-slate-200';
-    // columnClasses = 'bg-slate-100/25 dark:bg-slate-200/25';
-    // todoClasses = 'dark:bg-slate-300/50 border border-gray-200 dark:border-slate-200';
   } else if (id == 2) {
     badgeClasses = 'bg-sc-100 dark:bg-sc-200';
     columnClasses = 'bg-sc-100/25 dark:bg-sc-200/25';
@@ -49,12 +37,20 @@ function TodoColumn(props: IProps) {
     todoTable.put({ ...todo, name: text }, todo.id);
   }
 
-  function deleteTodo(todoId: Todo['id']) {
-    todoTable.delete(todoId as number);
+  function deleteTodo(todo: Todo) {
+    const itemsHasHigherIndex = todos.filter((x) => x.index > todo.index);
+    const indexDecreasedItems = itemsHasHigherIndex.map((x) => ({ ...x, index: x.index - 1 }));
+    const updatedTodo: Todo = { ...todo, isDeleted: true, index: -1 };
+    const allItemsToBeUpdated = [...indexDecreasedItems, updatedTodo];
+    todoTable.bulkPut(allItemsToBeUpdated);
   }
 
   function addTodo() {
-    todoTable.add({ name: 'Untitled', statusId: column.id as Todo['statusId'] });
+    todoTable.add({
+      name: 'Untitled',
+      statusId: column.id as Todo['statusId'],
+      index: todos.length,
+    });
   }
 
   return (
@@ -70,21 +66,40 @@ function TodoColumn(props: IProps) {
         </button>
       </div>
 
-      <div className="flex flex-col gap-2 my-2">
-        {todos.map((todo) => {
-          return (
-            <Editable
-              key={todo?.id}
-              className={`${todoClasses}  bg-white hover:bg-gray-50 text-slate-900 dark:text-white `}
-              value={todo.name}
-              handleDelete={() => deleteTodo(todo?.id)}
-              onSave={(text: string) => {
-                saveTodo(text, todo);
-              }}
-            />
-          );
-        })}
-      </div>
+      <Droppable droppableId={`${column.id}`}>
+        {({ droppableProps, innerRef, placeholder }) => (
+          <div
+            ref={innerRef}
+            {...droppableProps}
+            className={classNames('flex flex-col gap-2 my-2')}
+          >
+            {todos.map((todo) => {
+              return (
+                <Draggable key={todo?.id} draggableId={`${todo?.id}`} index={todo.index}>
+                  {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
+                    <div {...draggableProps} {...dragHandleProps} ref={innerRef}>
+                      <Editable
+                        className={classNames(
+                          !isDragging && todoClasses,
+                          'bg-white hover:bg-gray-50 text-slate-900 dark:text-white',
+                          isDragging &&
+                            'dark:bg-pc-500 border z-20 dark:border-pc-300 transition-colors'
+                        )}
+                        value={todo.name}
+                        handleDelete={() => deleteTodo(todo)}
+                        onSave={(text: string) => {
+                          saveTodo(text, todo);
+                        }}
+                      />
+                    </div>
+                  )}
+                </Draggable>
+              );
+            })}
+            {placeholder}
+          </div>
+        )}
+      </Droppable>
 
       <button
         onClick={addTodo}
