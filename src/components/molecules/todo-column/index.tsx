@@ -2,9 +2,9 @@ import { AddIcon } from '@src/assets/icons';
 import Badge from '@src/components/atoms/badge';
 import { todoTable } from '@src/lib/db';
 import { Status, Todo } from '@src/types';
-import Editable from '../editable';
-import { Droppable, Draggable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
+import TodoItem from '../todo';
 
 interface IProps {
   column: Status;
@@ -18,31 +18,15 @@ function TodoColumn(props: IProps) {
 
   let badgeClasses = '';
   let columnClasses = '';
-  let todoClasses = '';
   if (id === 1) {
     badgeClasses = 'bg-fc-100 dark:bg-fc-200';
     columnClasses = 'bg-fc-100/25 dark:bg-fc-200/25';
-    todoClasses = 'dark:bg-fc-300/50 border border-fc-200 dark:border-fc-200';
   } else if (id == 2) {
     badgeClasses = 'bg-sc-100 dark:bg-sc-200';
     columnClasses = 'bg-sc-100/25 dark:bg-sc-200/25';
-    todoClasses = 'dark:bg-sc-300/50 border border-gray-200 dark:border-sc-200';
   } else {
     badgeClasses = 'bg-tc-100 dark:bg-tc-200';
     columnClasses = 'bg-tc-100/25 dark:bg-tc-200/25';
-    todoClasses = 'dark:bg-tc-300/50 border border-gray-200 dark:border-tc-200';
-  }
-
-  function saveTodo(text: string, todo: Todo) {
-    todoTable.put({ ...todo, name: text }, todo.id);
-  }
-
-  function deleteTodo(todo: Todo) {
-    const itemsHasHigherIndex = todos.filter((x) => x.index > todo.index);
-    const indexDecreasedItems = itemsHasHigherIndex.map((x) => ({ ...x, index: x.index - 1 }));
-    const updatedTodo: Todo = { ...todo, isDeleted: true, index: -1 };
-    const allItemsToBeUpdated = [...indexDecreasedItems, updatedTodo];
-    todoTable.bulkPut(allItemsToBeUpdated);
   }
 
   function addTodo() {
@@ -55,7 +39,10 @@ function TodoColumn(props: IProps) {
 
   return (
     <div
-      className={` rounded p-2 shadow opacity-95 hover:opacity-100 transition-opacity ${columnClasses}`}
+      className={classNames(
+        'rounded p-2 shadow opacity-95 hover:opacity-100 transition-opacity',
+        columnClasses
+      )}
     >
       <div className="flex items-center justify-between">
         <Badge className={`${badgeClasses} text-slate-900 shadow-sm hover:shadow-md transition`}>
@@ -73,29 +60,9 @@ function TodoColumn(props: IProps) {
             {...droppableProps}
             className={classNames('flex flex-col gap-2 my-2')}
           >
-            {todos.map((todo) => {
-              return (
-                <Draggable key={todo?.id} draggableId={`${todo?.id}`} index={todo.index}>
-                  {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
-                    <div {...draggableProps} {...dragHandleProps} ref={innerRef}>
-                      <Editable
-                        className={classNames(
-                          !isDragging && todoClasses,
-                          'bg-white hover:bg-gray-50 text-slate-900 dark:text-white',
-                          isDragging &&
-                            'dark:bg-pc-500 border z-20 dark:border-pc-300 transition-colors'
-                        )}
-                        value={todo.name}
-                        handleDelete={() => deleteTodo(todo)}
-                        onSave={(text: string) => {
-                          saveTodo(text, todo);
-                        }}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              );
-            })}
+            {todos.map((todo) => (
+              <TodoItem key={todo.id} todo={todo} todos={todos} />
+            ))}
             {placeholder}
           </div>
         )}

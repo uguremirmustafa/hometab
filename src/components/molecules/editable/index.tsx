@@ -60,6 +60,11 @@ function Editable(props: IProps) {
         className={cls}
         disabled={mode === 'show'}
         spellCheck={false}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') {
+            handleBlur();
+          }
+        }}
       />
       {mode !== 'edit' ? (
         <div className="absolute hidden group-hover:flex right-2 top-2 divide-x dark:divide-slate-50 divide-slate-300 rounded overflow-hidden">
