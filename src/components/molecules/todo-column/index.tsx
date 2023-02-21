@@ -5,6 +5,7 @@ import { Status, Todo } from '@src/types';
 import { Droppable } from 'react-beautiful-dnd';
 import classNames from 'classnames';
 import TodoItem from '../todo';
+import { useModal } from '@src/lib/store';
 
 interface IProps {
   column: Status;
@@ -61,7 +62,7 @@ function TodoColumn(props: IProps) {
             className={classNames('flex flex-col gap-2 my-2')}
           >
             {todos.map((todo) => (
-              <TodoItem key={todo.id} todo={todo} todos={todos} />
+              <TodoItem key={todo?.id} todo={todo} todos={todos} />
             ))}
             {placeholder}
           </div>

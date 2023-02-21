@@ -33,7 +33,7 @@ function TodosSection() {
     const startColumn = todos[source.droppableId as unknown as StatusType];
     const endColumn = todos[destination.droppableId as unknown as StatusType];
     const todo = startColumn.find((x) => `${x.id}` === draggableId) as Todo;
-    console.log(todo);
+
     if (source.droppableId === destination.droppableId) {
       const columnItems = [...startColumn];
       columnItems.splice(source.index, 1);
@@ -58,7 +58,7 @@ function TodosSection() {
     const endColumnItems = [...endColumn];
     endColumnItems.splice(destination.index, 0, {
       ...todo,
-      statusId: parseInt(destination.droppableId),
+      statusId: parseInt(destination.droppableId) as StatusType,
     });
     const orderedEnd = endColumnItems.map((x, i) => ({ ...x, index: i }));
 

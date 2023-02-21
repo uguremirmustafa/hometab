@@ -325,6 +325,34 @@
   ::selection {
     @apply bg-pc-500 text-pc-50;
   }
+  /* scrollbar */
+  ::-webkit-scrollbar {
+    @apply dark:bg-pc-300/50 w-1.5 h-1.5 rounded-sm;
+  }
+  ::-webkit-scrollbar:disabled {
+    @apply hidden;
+  }
+  .scrollbar-lg::-webkit-scrollbar {
+    @apply w-2 h-2;
+  }
+  ::-webkit-scrollbar-track {
+    @apply rounded-sm dark:bg-pc-300/50;
+  }
+  ::-webkit-scrollbar-track:disabled {
+    @apply dark:bg-pc-100 invisible;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply dark:bg-pc-500 rounded-sm;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply dark:bg-pc-600;
+  }
+  /* content editable */
+  [contenteditable='true']:empty:before {
+    content: attr(placeholder);
+    display: block;
+    @apply dark:text-gray-500 text-gray-300;
+  }
   /* classes */
   .border,
   .border-r,
@@ -332,7 +360,9 @@
   .border-t,
   .border-b,
   .border-x,
-  .border-y {
+  .border-y,
+  .border-b-2,
+  .border-2 {
     @apply border-pc-400 dark:border-pc-200;
   }
 }

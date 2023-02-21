@@ -16,16 +16,16 @@ function useTodos() {
     async () => {
       setLoading(true);
       const todos = await todoTable.filter((x) => !x.isDeleted).sortBy('index');
+
       const groupedTodos = groupBy(todos, (x) => x.statusId as 1 | 2 | 3);
-      setTodos((old) => {
-        return {
-          '1': groupedTodos['1'] ?? [],
-          '2': groupedTodos['2'] ?? [],
-          '3': groupedTodos['3'] ?? [],
-        };
-      });
+      const safeTodos = {
+        '1': groupedTodos['1'] ?? [],
+        '2': groupedTodos['2'] ?? [],
+        '3': groupedTodos['3'] ?? [],
+      };
+      setTodos(safeTodos);
       setLoading(false);
-      return { groupedTodos, todos };
+      return { groupedTodos: safeTodos, todos };
     },
     [],
     { todos: [], groupedTodos: { 1: [], 2: [], 3: [] } }

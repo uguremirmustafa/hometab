@@ -11,9 +11,9 @@ interface AppState {
 
 export const useApp = create<AppState>((set) => ({
   modal: null,
-  setModal: (modal) => set((state) => ({ modal })),
+  setModal: (modal) => set((state) => ({ ...state, modal })),
   settings: undefined,
-  setSettings: (settings) => set((state) => ({ settings })),
+  setSettings: (settings) => set((state) => ({ ...state, settings })),
 }));
 
 export const useModal = () => {

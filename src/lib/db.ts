@@ -11,8 +11,8 @@ class MyAppDatabase extends Dexie {
 
   constructor() {
     super('MyAppDatabase');
-    this.version(1).stores({
-      todo: '++id,name,statusId,index,isDeleted',
+    this.version(2).stores({
+      todo: '++id,name,statusId,index,isDeleted,dueDate,description',
       status: 'id,name',
       setting: '++id,name,description,value,type',
       //...other tables goes here...
@@ -24,7 +24,13 @@ export const db = new MyAppDatabase();
 
 export const todoTable = db.todo;
 todoTable.bulkAdd([
-  { id: 1, name: 'Finish hometab', statusId: 2, index: 0 },
+  {
+    id: 1,
+    name: 'Finish hometab',
+    description: 'Some long content goes here so that we can work with this long text.',
+    statusId: 1,
+    index: 0,
+  },
   { id: 2, name: 'Add search functionality', statusId: 1, index: 0 },
   { id: 3, name: 'Clean up the kitchen', statusId: 1, index: 1 },
   { id: 4, name: 'Buy a present to Feyza', statusId: 3, index: 0 },

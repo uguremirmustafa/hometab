@@ -6,13 +6,19 @@ interface IProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   onSave: (text: string) => void;
   handleDelete: () => void;
+  openModal: () => void;
 }
 
 function Editable(props: IProps) {
-  const { className, value, onSave, handleDelete, ...rest } = props;
+  const { className, value, onSave, handleDelete, openModal, ...rest } = props;
   const [mode, setMode] = useState<'show' | 'edit'>('show');
 
   const text = useRef(value);
+
+  useEffect(() => {
+    text.current = value;
+  }, [value]);
+
   const innerRef = useRef<HTMLElement | null>(null);
   const cls = `group/editable rounded p-2 text-sm cursor-pointer focus:cursor-text hover:shadow-sm transition-all ${className}`;
 
@@ -36,6 +42,7 @@ function Editable(props: IProps) {
   useEffect(() => {
     if (mode === 'edit' && el) {
       el.focus();
+
       if (typeof window.getSelection != 'undefined' && typeof document.createRange != 'undefined') {
         const range = document.createRange();
         range.selectNodeContents(el);
@@ -47,12 +54,19 @@ function Editable(props: IProps) {
     }
   }, [mode, !!el]);
 
+  const handleModalOpen = () => {
+    if (mode === 'show') {
+      openModal();
+    }
+  };
+
   const btnCls =
     'p-[3px] shadow-md overflow-hidden dark:bg-slate-600 dark:hover:bg-slate-600/75 bg-slate-300/50 hover:bg-slate-400/50 transition-all cursor-pointer rounded-none';
 
   return (
     <div className="relative group">
       <ContentEditable
+        {...rest}
         innerRef={innerRef}
         html={text.current}
         onChange={handleChange}
@@ -65,6 +79,7 @@ function Editable(props: IProps) {
             handleBlur();
           }
         }}
+        onClick={handleModalOpen}
       />
       {mode !== 'edit' ? (
         <div className="absolute hidden group-hover:flex right-2 top-2 divide-x dark:divide-slate-50 divide-slate-300 rounded overflow-hidden">
