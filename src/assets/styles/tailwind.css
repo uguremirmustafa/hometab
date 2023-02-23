@@ -1,10 +1,11 @@
+@import './colors.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   /* colors */
-
   [data-pc='pink-salmon'] {
     --pc-50: 255 241 242;
     --pc-100: 255 228 231;
@@ -371,4 +372,26 @@
   .btn {
     @apply bg-pc-500 font-semibold px-4 py-2 rounded;
   }
+  .paper {
+    @apply dark:bg-dark2 dark:hover:bg-dark1/50 rounded px-3 py-2 w-full flex items-center transition-colors;
+  }
+}
+
+.react-datepicker__header {
+  @apply dark:bg-dark2 bg-light1;
+}
+.react-datepicker__day--today {
+  @apply dark:!border-red-400 !border-red-500 border rounded;
+}
+.react-datepicker__day--selected {
+  @apply dark:!bg-red-400 !bg-red-500 rounded;
+}
+.react-datepicker__day--disabled {
+  @apply dark:text-slate-500 text-slate-400;
+}
+/* .react-datepicker__navigation {
+  @apply absolute top-2;
+} */
+.react-datepicker__day--outside-month {
+  @apply invisible;
 }

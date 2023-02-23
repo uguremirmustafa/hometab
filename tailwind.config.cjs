@@ -58,6 +58,7 @@ module.exports = {
         'tc-900': 'rgb(var(--tc-900) / <alpha-value>)',
         dark1: '#1F2937',
         dark2: '#334155',
+        dark3: '#475569',
         light1: '#ffffff',
         light2: '#cccccc',
       },

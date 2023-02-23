@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client';
+import 'react-datepicker/dist/react-datepicker.css';
 import '@assets/styles/tailwind.css';
 import App from './App';
 
