@@ -328,25 +328,28 @@
   }
   /* scrollbar */
   ::-webkit-scrollbar {
-    @apply dark:bg-pc-300/50 w-1.5 h-1.5 rounded-sm;
+    @apply dark:bg-pc-300/50 w-1.5 h-1.5 !cursor-default;
   }
   ::-webkit-scrollbar:disabled {
     @apply hidden;
+  }
+  .scrollbar-xs::-webkit-scrollbar {
+    @apply w-0.5 h-0.5;
   }
   .scrollbar-lg::-webkit-scrollbar {
     @apply w-2 h-2;
   }
   ::-webkit-scrollbar-track {
-    @apply rounded-sm dark:bg-pc-300/50;
+    @apply dark:bg-pc-200/50;
   }
   ::-webkit-scrollbar-track:disabled {
     @apply dark:bg-pc-100 invisible;
   }
   ::-webkit-scrollbar-thumb {
-    @apply dark:bg-pc-500 rounded-sm;
+    @apply dark:bg-dark1/50 !cursor-default;
   }
   ::-webkit-scrollbar-thumb:hover {
-    @apply dark:bg-pc-600;
+    @apply dark:bg-dark1/80;
   }
   /* content editable */
   [contenteditable='true']:empty:before {
@@ -370,10 +373,16 @@
 
 @layer components {
   .btn {
-    @apply bg-pc-500 font-semibold px-4 py-2 rounded;
+    @apply dark:bg-pc-200/50 dark:hover:bg-pc-200/80 transition-colors font-semibold px-4 py-2 rounded;
+  }
+  .icon-btn {
+    @apply dark:bg-pc-200/30 dark:hover:bg-pc-200/50 focus:outline-none dark:focus:bg-pc-200/50 transition-colors font-semibold p-1 rounded;
   }
   .paper {
-    @apply dark:bg-dark2 dark:hover:bg-dark1/50 rounded px-3 py-2 w-full flex items-center transition-colors;
+    @apply dark:bg-dark2 dark:hover:bg-dark1/50 border dark:border-dark2 rounded px-3 py-2 w-full flex items-center transition-colors focus:outline-none active:outline-none dark:focus:border-dark1/50 focus-within:outline-none focus-visible:outline-none;
+  }
+  .text-box {
+    @apply dark:bg-pc-200/50 dark:focus:bg-pc-200/80 border dark:border-pc-300/50 dark:hover:border-pc-300/80 dark:text-pc-900 focus:outline-none focus-visible:outline-none active:outline-none focus:border-pc-400/80 px-4 py-2 rounded;
   }
 }
 

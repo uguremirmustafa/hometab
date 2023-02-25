@@ -1,5 +1,5 @@
 import { ColorName } from '@src/components/organisms/settings-button/setting-sections/theme-settings/types';
-import { Setting, Status, StatusType, Todo } from '@src/types';
+import { Note, Section, Setting, Status, StatusType, Todo } from '@src/types';
 import { Dexie } from 'dexie';
 
 class MyAppDatabase extends Dexie {
@@ -8,13 +8,17 @@ class MyAppDatabase extends Dexie {
   todo!: Dexie.Table<Todo, number>; // number = type of the primkey
   status!: Dexie.Table<Status, StatusType>; // number = type of the primkey
   setting!: Dexie.Table<Setting, number>; // number = type of the primkey
+  section!: Dexie.Table<Section, number>; // number = type of the primkey
+  note!: Dexie.Table<Note, number>; // number = type of the primkey
 
   constructor() {
     super('MyAppDatabase');
-    this.version(2).stores({
+    this.version(9).stores({
       todo: '++id,name,statusId,index,isDeleted,dueDate,description',
       status: 'id,name',
       setting: '++id,name,description,value,type',
+      section: '++id,type,status,title',
+      note: '++id,name,isOpen',
       //...other tables goes here...
     });
   }
@@ -31,7 +35,7 @@ todoTable.bulkAdd([
     statusId: 1,
     index: 0,
   },
-  { id: 2, name: 'Add search functionality', statusId: 1, index: 0 },
+  { id: 2, name: 'Add search functionality', statusId: 1, index: 1 },
   { id: 3, name: 'Clean up the kitchen', statusId: 1, index: 1 },
   { id: 4, name: 'Buy a present to Feyza', statusId: 3, index: 0 },
 ]);
@@ -51,3 +55,30 @@ const colors: Setting<ColorName>[] = [
   { id: 4, name: 'pc', value: 'turquoise-blue', type: 'color' },
 ];
 settingsTable.bulkAdd(colors);
+
+export const sectionsTable = db.section;
+const sections: Section[] = [
+  { id: 1, title: 'Todos', status: 'uncollapsed', type: 'todos' },
+  { id: 2, title: 'Notes', status: 'uncollapsed', type: 'notes' },
+];
+sectionsTable.bulkAdd(sections);
+
+export const notesTable = db.note;
+const notes: Note[] = [
+  {
+    id: 1,
+    name: 'JS: love, hate and regret!',
+    createdAt: new Date(),
+    isOpen: true,
+    isActive: true,
+  },
+  {
+    id: 2,
+    name: 'Penguins? Not just your average cute animal!',
+    createdAt: new Date(),
+    isOpen: false,
+    isActive: false,
+  },
+  { id: 3, name: 'Overreacting...', createdAt: new Date(), isOpen: true, isActive: false },
+];
+notesTable.bulkAdd(notes);

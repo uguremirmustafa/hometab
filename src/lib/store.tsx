@@ -7,6 +7,8 @@ interface AppState {
   setModal: (modal: ModalProps | null) => void;
   settings: UseSettingsResponse | undefined;
   setSettings: (settings: UseSettingsResponse) => void;
+  loading: boolean;
+  setLoading: (isLoading: boolean) => void;
 }
 
 export const useApp = create<AppState>((set) => ({
@@ -14,6 +16,8 @@ export const useApp = create<AppState>((set) => ({
   setModal: (modal) => set((state) => ({ ...state, modal })),
   settings: undefined,
   setSettings: (settings) => set((state) => ({ ...state, settings })),
+  loading: false,
+  setLoading: (isLoading) => set((state) => ({ ...state, loading: isLoading })),
 }));
 
 export const useModal = () => {

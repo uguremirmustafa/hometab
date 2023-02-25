@@ -78,8 +78,7 @@ function TodoItem(props: IProps) {
     todoTable.bulkPut(allItemsToBeUpdated);
   }
 
-  async function openTodoDetails(t: Todo) {
-    const todo = await todoTable.get(t.id as number);
+  async function openTodoDetails() {
     if (todo) {
       setModal({
         id: `${todo?.id}_todoDetails`,
@@ -95,7 +94,7 @@ function TodoItem(props: IProps) {
 
   const handleModalOpen = () => {
     if (mode === 'show') {
-      openTodoDetails(todo);
+      openTodoDetails();
     }
   };
 
@@ -110,7 +109,7 @@ function TodoItem(props: IProps) {
   return (
     <Draggable draggableId={`${todo?.id}`} index={todo.index}>
       {({ draggableProps, dragHandleProps, innerRef }, { isDragging }) => (
-        <div {...dragHandleProps} {...draggableProps} ref={innerRef}>
+        <div {...dragHandleProps} {...draggableProps} ref={innerRef} onClick={handleModalOpen}>
           <div
             className={classNames(
               'relative',
@@ -119,7 +118,6 @@ function TodoItem(props: IProps) {
               !isDragging && getClassNames(todo),
               'group rounded p-2 text-sm cursor-pointer hover:shadow-sm transition-all'
             )}
-            onClick={handleModalOpen}
           >
             <ContentEditable
               innerRef={editableInnerRef}
@@ -147,7 +145,7 @@ function TodoItem(props: IProps) {
               )}
               dateFormat="dd MMM"
               minDate={new Date()}
-              placeholderText="Due date"
+              placeholder="Due date"
             />
             {mode !== 'edit' ? (
               <div className="absolute hidden group-hover:flex right-2 top-2 divide-x dark:divide-slate-50 divide-slate-300 rounded overflow-hidden">

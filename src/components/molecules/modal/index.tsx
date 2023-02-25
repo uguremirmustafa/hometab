@@ -1,12 +1,12 @@
 import { CloseIcon } from '@src/assets/icons';
 import useOutsideClick from '@src/hooks/useOutsideClick';
-import { useModal } from '@src/lib/store';
+import { useApp, useModal } from '@src/lib/store';
 import classNames from 'classnames';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 function Modal() {
-  const { modal, setModal } = useModal();
-
+  const { modal, setModal, closeModal } = useModal();
+  const { loading } = useApp();
   const isSidebar = modal?.type === 'sidebar';
 
   const ref = useRef(null);
@@ -20,6 +20,18 @@ function Modal() {
   };
   useOutsideClick([ref], toggle);
 
+  function handleEsc(event: any) {
+    if (event.key === 'Escape' && !loading) {
+      event.preventDefault();
+      closeModal();
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEsc);
+    return () => window.removeEventListener('keydown', handleEsc);
+  }, []);
+
   return (
     <div
       className={classNames(
@@ -32,15 +44,16 @@ function Modal() {
         className={classNames(
           'z-20 w-full  dark:bg-dark2 bg-light1 shadow-lg',
           modal?.maxWidth ?? 'max-w-3xl',
-          !isSidebar && 'h-min rounded relative',
+          !isSidebar && 'h-min rounded absolute',
           !isSidebar && modal?.maxHeight,
-          isSidebar && 'fixed right-0 h-screen top-0'
+          isSidebar && 'fixed right-0 h-screen top-0',
+          modal?.className ?? ''
         )}
       >
         <div className="w-100 dark:bg-dark3 bg-slate-200 rounded-t px-4 h-12 flex items-center relative">
           <h2>{modal?.title}</h2>
           <button
-            tabIndex={-1}
+            tabIndex={modal ? 0 : -1}
             onClick={toggle}
             className="absolute top-2 right-2 h-8 w-8 flex items-center justify-center rounded leading-none"
           >

@@ -20,6 +20,7 @@ const manifest: Manifest.WebExtensionManifest = {
   chrome_url_overrides: {
     newtab: 'src/pages/newtab/index.html',
   },
+  permissions: ['bookmarks', 'tabs'],
   icons: {
     '128': 'icon-128.png',
   },

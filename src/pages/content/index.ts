@@ -1,5 +1,5 @@
 try {
-  console.log('content script loaded');
+  console.log('content script yo!~');
 } catch (e) {
   console.error(e);
 }

@@ -1,5 +1,5 @@
 import useSettingsData, { UseSettingsResponse } from '@src/hooks/api-hooks/useSettings';
-import React, { createContext, ReactNode, useContext, useMemo, useState, useEffect } from 'react';
+import React, { createContext, ReactNode, useContext, useMemo, useEffect } from 'react';
 
 interface InitialValues {
   settings?: UseSettingsResponse;

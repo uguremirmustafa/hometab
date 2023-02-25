@@ -73,7 +73,7 @@ function TodosSection() {
   }
 
   return (
-    <div className="w-[900px] grid grid-cols-12 gap-4 mx-auto p-4 rounded">
+    <div className="grid grid-cols-12 gap-4">
       <DragDropContext onDragEnd={onDragEnd}>
         {columns?.map((col, i) => {
           return (

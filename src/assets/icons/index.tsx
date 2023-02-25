@@ -24,6 +24,54 @@ const SvgIcon = (props: IProps) => {
   );
 };
 
+export const LoadingIcon = (props: Icon) => (
+  <SvgIcon {...props} className={`${props.className} rounded-full animate-spin`}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M12 3a9 9 0 0 1 9 9h-2a7 7 0 0 0-7-7V3z" />
+  </SvgIcon>
+);
+export const SearchIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M18.031 16.617l4.283 4.282-1.415 1.415-4.282-4.283A8.96 8.96 0 0 1 11 20c-4.968 0-9-4.032-9-9s4.032-9 9-9 9 4.032 9 9a8.96 8.96 0 0 1-1.969 5.617zm-2.006-.742A6.977 6.977 0 0 0 18 11c0-3.868-3.133-7-7-7-3.868 0-7 3.132-7 7 0 3.867 3.132 7 7 7a6.977 6.977 0 0 0 4.875-1.975l.15-.15z" />
+  </SvgIcon>
+);
+export const CheckIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M10 15.172l9.192-9.193 1.415 1.414L10 18l-6.364-6.364 1.414-1.414z" />
+  </SvgIcon>
+);
+export const SaveIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M7 19v-6h10v6h2V7.828L16.172 5H5v14h2zM4 3h13l4 4v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1zm5 12v4h6v-4H9z" />
+  </SvgIcon>
+);
+export const FileAddIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M15 4H5v16h14V8h-4V4zM3 2.992C3 2.444 3.447 2 3.999 2H16l5 5v13.993A1 1 0 0 1 20.007 22H3.993A1 1 0 0 1 3 21.008V2.992zM11 11V8h2v3h3v2h-3v3h-2v-3H8v-2h3z" />
+  </SvgIcon>
+);
+export const FileSearchIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M15 4H5v16h14V8h-4V4zM3 2.992C3 2.444 3.447 2 3.999 2H16l5 5v13.993A1 1 0 0 1 20.007 22H3.993A1 1 0 0 1 3 21.008V2.992zm10.529 11.454a4.002 4.002 0 0 1-4.86-6.274 4 4 0 0 1 6.274 4.86l2.21 2.21-1.414 1.415-2.21-2.21zm-.618-2.032a2 2 0 1 0-2.828-2.828 2 2 0 0 0 2.828 2.828z" />
+  </SvgIcon>
+);
+export const FileIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M9 2.003V2h10.998C20.55 2 21 2.455 21 2.992v18.016a.993.993 0 0 1-.993.992H3.993A1 1 0 0 1 3 20.993V8l6-5.997zM5.83 8H9V4.83L5.83 8zM11 4v5a1 1 0 0 1-1 1H5v10h14V4h-8z" />
+  </SvgIcon>
+);
+export const ChevronDownIcon = (props: Icon) => (
+  <SvgIcon {...props}>
+    <path fill="none" d="M0 0h24v24H0z" />
+    <path d="M12 13.172l4.95-4.95 1.414 1.414L12 16 5.636 9.636 7.05 8.222z" />
+  </SvgIcon>
+);
 export const CalendarIcon = (props: Icon) => (
   <SvgIcon {...props}>
     <path fill="none" d="M0 0h24v24H0z" />
