@@ -299,6 +299,10 @@
     @apply dark:text-slate-100 text-slate-900;
   }
 
+  body {
+    @apply dark:bg-dark1 bg-light1 p-0 m-0;
+  }
+
   h1,
   h2,
   h3,
@@ -327,30 +331,7 @@
     @apply bg-pc-500 text-pc-50;
   }
   /* scrollbar */
-  ::-webkit-scrollbar {
-    @apply dark:bg-pc-300/50 w-1.5 h-1.5 !cursor-default;
-  }
-  ::-webkit-scrollbar:disabled {
-    @apply hidden;
-  }
-  .scrollbar-xs::-webkit-scrollbar {
-    @apply w-0.5 h-0.5;
-  }
-  .scrollbar-lg::-webkit-scrollbar {
-    @apply w-2 h-2;
-  }
-  ::-webkit-scrollbar-track {
-    @apply dark:bg-pc-200/50;
-  }
-  ::-webkit-scrollbar-track:disabled {
-    @apply dark:bg-pc-100 invisible;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply dark:bg-dark1/50 !cursor-default;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply dark:bg-dark1/80;
-  }
+
   /* content editable */
   [contenteditable='true']:empty:before {
     content: attr(placeholder);
@@ -373,7 +354,10 @@
 
 @layer components {
   .btn {
-    @apply dark:bg-pc-200/50 dark:hover:bg-pc-200/80 transition-colors font-semibold px-4 py-2 rounded;
+    @apply dark:bg-pc-200/50 dark:hover:bg-pc-200/80 border dark:border-pc-200/50 dark:hover:border-pc-200/80 transition-colors font-semibold px-4 py-2 rounded disabled:dark:bg-gray-400 disabled:dark:border-gray-400;
+  }
+  .btn-outlined {
+    @apply btn dark:bg-transparent dark:text-pc-200/80 dark:hover:text-white;
   }
   .icon-btn {
     @apply dark:bg-pc-200/30 dark:hover:bg-pc-200/50 focus:outline-none dark:focus:bg-pc-200/50 transition-colors font-semibold p-1 rounded;
@@ -403,4 +387,29 @@
 } */
 .react-datepicker__day--outside-month {
   @apply invisible;
+}
+::-webkit-scrollbar {
+  @apply dark:bg-transparent w-1.5 h-1.5 !cursor-auto;
+}
+::-webkit-scrollbar:disabled {
+  @apply hidden;
+}
+.scrollbar-xs::-webkit-scrollbar {
+  @apply w-0.5 h-0.5;
+}
+.scrollbar-lg::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+::-webkit-scrollbar-track {
+  @apply dark:bg-dark1;
+}
+::-webkit-scrollbar-track:disabled {
+  @apply dark:bg-dark1 invisible;
+}
+::-webkit-scrollbar-thumb {
+  @apply dark:bg-dark3/50 !cursor-auto;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  @apply dark:bg-dark3/80;
 }

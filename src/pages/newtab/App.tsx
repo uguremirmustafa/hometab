@@ -43,7 +43,7 @@ export default function App(): JSX.Element {
         <LoadingIndicator />
         <Modal />
         <ConfigBar />
-        <div className="dark:bg-dark1 bg-light1 h-screen transition-colors duration-200 p-8">
+        <div className="dark:bg-dark1 bg-light1 transition-colors duration-200 p-8">
           {notes.status !== 'inactive' ? (
             <Collapsible
               collapsed={notes.status === 'collapsed'}

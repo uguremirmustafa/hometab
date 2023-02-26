@@ -1,4 +1,4 @@
-import { AddIcon, DeleteIcon, SaveIcon, SearchIcon } from '@src/assets/icons';
+import { AddIcon, DeleteIcon, OpenFolderIcon, SaveIcon, SearchIcon } from '@src/assets/icons';
 import { useOpenNotes } from '@src/hooks/api-hooks/useNotes';
 import useCtrlS from '@src/hooks/useCtrlS';
 import { notesTable } from '@src/lib/db';
@@ -114,7 +114,11 @@ function NotesSection() {
     });
   }
 
-  useCtrlS(saveNote);
+  useCtrlS(() => {
+    if (active) {
+      saveNote();
+    }
+  });
 
   return (
     <div className="mb-4">
@@ -125,11 +129,14 @@ function NotesSection() {
             <AddIcon size={18} />
           </button>
           <button className="icon-btn" onClick={searchNote}>
-            <SearchIcon size={18} />
+            <OpenFolderIcon size={18} />
           </button>
           {active && (
-            <button className="icon-btn" onClick={saveNote}>
-              <SaveIcon size={18} className={classNames(isChanged && 'dark:!fill-red-400')} />
+            <button
+              className={classNames('icon-btn', isChanged && 'animate-bounce')}
+              onClick={saveNote}
+            >
+              <SaveIcon size={18} className={classNames(isChanged && 'dark:!fill-pc-800')} />
             </button>
           )}
           {active && (
@@ -147,7 +154,7 @@ function NotesSection() {
         </div>
       </div>
       {notes.length && watch('id') !== 0 ? (
-        <div className="w-full">
+        <div>
           <ContentEditable
             html={watch('name') ?? ''}
             onChange={(e) => setValue('name', e.target.value)}
@@ -164,7 +171,7 @@ function NotesSection() {
             onChange={(e) => setValue('content', e.target.value)}
             spellCheck={false}
             className={classNames(
-              'text-base outline-none min-h-[300px] max-h-[550px] p-4  dark:bg-pc-200/50 dark:text-pc-50 overflow-y-scroll scrollbar-lg cursor-text rounded-b'
+              'text-base outline-none min-h-[300px] max-h-[450px] p-4 dark:bg-pc-200/50 dark:text-pc-50 font-semibold overflow-scroll scrollbar-lg cursor-text rounded-b'
             )}
             placeholder="I need to jot down here otherwise it will puff away..."
             onBlur={saveNote}

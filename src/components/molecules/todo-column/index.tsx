@@ -59,7 +59,9 @@ function TodoColumn(props: IProps) {
           <div
             ref={innerRef}
             {...droppableProps}
-            className={classNames('flex flex-col gap-2 my-2')}
+            className={classNames(
+              'flex flex-col gap-2 my-2 max-h-[300px] overflow-y-scroll scrollbar-lg'
+            )}
           >
             {todos.map((todo) => (
               <TodoItem key={todo?.id} todo={todo} todos={todos} />

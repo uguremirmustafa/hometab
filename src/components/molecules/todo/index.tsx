@@ -81,10 +81,9 @@ function TodoItem(props: IProps) {
   async function openTodoDetails() {
     if (todo) {
       setModal({
-        id: `${todo?.id}_todoDetails`,
+        id: 'todoDetails',
         content: <TodoDetails todo={todo} />,
         title: 'Todo Details',
-        type: 'modal',
         maxWidth: 'max-w-3xl',
       });
     } else {

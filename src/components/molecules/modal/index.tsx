@@ -21,6 +21,9 @@ function Modal() {
   useOutsideClick([ref], toggle);
 
   function handleEsc(event: any) {
+    if (loading) {
+      return;
+    }
     if (event.key === 'Escape' && !loading) {
       event.preventDefault();
       closeModal();
@@ -36,7 +39,7 @@ function Modal() {
     <div
       className={classNames(
         isOpen ? 'bg-opacity-30 z-10' : 'bg-opacity-0 -z-10',
-        'fixed grid place-items-center w-screen h-screen bg-black'
+        'absolute w-screen h-full bg-black'
       )}
     >
       <div
@@ -44,7 +47,7 @@ function Modal() {
         className={classNames(
           'z-20 w-full  dark:bg-dark2 bg-light1 shadow-lg',
           modal?.maxWidth ?? 'max-w-3xl',
-          !isSidebar && 'h-min rounded absolute',
+          !isSidebar && 'h-min rounded absolute top-20 left-1/2 -translate-x-1/2',
           !isSidebar && modal?.maxHeight,
           isSidebar && 'fixed right-0 h-screen top-0',
           modal?.className ?? ''
