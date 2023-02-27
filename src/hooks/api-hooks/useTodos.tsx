@@ -39,3 +39,23 @@ function useTodos() {
 }
 
 export default useTodos;
+
+export function useDeletedTodos(query?: string) {
+  const data = useLiveQuery(
+    async () => {
+      const res = await todoTable
+        .reverse()
+        .filter(
+          (x) =>
+            !!x.isDeleted && (query ? x.name.toLowerCase().includes(query.toLowerCase()) : true)
+        )
+        .sortBy('createdAt');
+
+      return res;
+    },
+    [query],
+    []
+  );
+
+  return data;
+}

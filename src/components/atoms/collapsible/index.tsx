@@ -35,7 +35,7 @@ function Collapsible(props: IProps) {
           'transition-all duration-100 origin-top mt-4',
           collapsed
             ? 'h-0 opacity-0 -z-10 invisible cursor-none pointer-events-none scale-y-0'
-            : 'max-h-screen z-0 opacity-100 visible scale-y-100'
+            : 'max-h-screen z-0 opacity-100 visible'
         )}
       >
         {children}

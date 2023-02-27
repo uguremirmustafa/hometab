@@ -13,7 +13,7 @@ class MyAppDatabase extends Dexie {
 
   constructor() {
     super('MyAppDatabase');
-    this.version(9).stores({
+    this.version(1).stores({
       todo: '++id,name,statusId,index,isDeleted,dueDate,description',
       status: 'id,name',
       setting: '++id,name,description,value,type',
@@ -36,7 +36,7 @@ todoTable.bulkAdd([
     index: 0,
   },
   { id: 2, name: 'Add search functionality', statusId: 1, index: 1 },
-  { id: 3, name: 'Clean up the kitchen', statusId: 1, index: 1 },
+  { id: 3, name: 'Clean up the kitchen', statusId: 1, index: 2 },
   { id: 4, name: 'Buy a present to Feyza', statusId: 3, index: 0 },
 ]);
 

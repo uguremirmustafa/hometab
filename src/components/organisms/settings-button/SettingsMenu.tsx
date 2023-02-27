@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ThemeSettings from './setting-sections/theme-settings';
+import TodosSettings from './setting-sections/todos';
 import { SettingSection, settingSections } from './types';
 
 interface IProps {
@@ -31,7 +32,10 @@ function SettingsMenu(props: IProps) {
           </li>
         ))}
       </ul>
-      <div className="col-span-9 p-4">{activeMenu === 'theme' ? <ThemeSettings /> : null}</div>
+      <div className="col-span-9 p-4">
+        {activeMenu === 'theme' ? <ThemeSettings /> : null}
+        {activeMenu === 'todos' ? <TodosSettings /> : null}
+      </div>
     </div>
   );
 }
