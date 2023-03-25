@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import BookmarkSettings from './setting-sections/bookmarks';
 import ThemeSettings from './setting-sections/theme-settings';
 import TodosSettings from './setting-sections/todos';
 import { SettingSection, settingSections } from './types';
@@ -35,6 +36,7 @@ function SettingsMenu(props: IProps) {
       <div className="col-span-9 p-4">
         {activeMenu === 'theme' ? <ThemeSettings /> : null}
         {activeMenu === 'todos' ? <TodosSettings /> : null}
+        {activeMenu === 'bookmarks' ? <BookmarkSettings /> : null}
       </div>
     </div>
   );

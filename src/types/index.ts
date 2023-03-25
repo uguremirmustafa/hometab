@@ -6,3 +6,4 @@ export * from './setting';
 export * from './section';
 export * from './tab';
 export * from './note';
+export * from './bookmark';

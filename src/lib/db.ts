@@ -1,5 +1,5 @@
 import { ColorName } from '@src/components/organisms/settings-button/setting-sections/theme-settings/types';
-import { Note, Section, Setting, Status, StatusType, Todo } from '@src/types';
+import { Note, Section, Setting, Status, StatusType, Todo, Bookmark } from '@src/types';
 import { Dexie } from 'dexie';
 
 class MyAppDatabase extends Dexie {
@@ -10,15 +10,17 @@ class MyAppDatabase extends Dexie {
   setting!: Dexie.Table<Setting, number>; // number = type of the primkey
   section!: Dexie.Table<Section, number>; // number = type of the primkey
   note!: Dexie.Table<Note, number>; // number = type of the primkey
+  bookmark!: Dexie.Table<Bookmark, number>;
 
   constructor() {
     super('MyAppDatabase');
-    this.version(1).stores({
+    this.version(2).stores({
       todo: '++id,name,statusId,index,isDeleted,dueDate,description',
       status: 'id,name',
       setting: '++id,name,description,value,type',
       section: '++id,type,status,title',
       note: '++id,name,isOpen',
+      bookmark: '++id,&name,tags,&url',
       //...other tables goes here...
     });
   }
@@ -60,6 +62,7 @@ export const sectionsTable = db.section;
 const sections: Section[] = [
   { id: 1, title: 'Todos', status: 'uncollapsed', type: 'todos' },
   { id: 2, title: 'Notes', status: 'uncollapsed', type: 'notes' },
+  { id: 3, title: 'Bookmarks', status: 'uncollapsed', type: 'bookmarks' },
 ];
 sectionsTable.bulkAdd(sections);
 
@@ -82,3 +85,5 @@ const notes: Note[] = [
   { id: 3, name: 'Overreacting...', createdAt: new Date(), isOpen: true, isActive: false },
 ];
 notesTable.bulkAdd(notes);
+
+export const bookmarksTable = db.bookmark;

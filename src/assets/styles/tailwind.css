@@ -354,7 +354,7 @@
 
 @layer components {
   .btn {
-    @apply dark:bg-pc-200/50 dark:hover:bg-pc-200/80 border dark:border-pc-200/50 dark:hover:border-pc-200/80 transition-colors font-semibold px-4 py-2 rounded disabled:dark:bg-gray-400 disabled:dark:border-gray-400;
+    @apply dark:bg-pc-200/50 dark:hover:bg-pc-200/80 border dark:border-pc-200/50 dark:hover:border-pc-200/80 transition-colors font-semibold px-4 h-10 flex items-center rounded disabled:dark:bg-gray-400 disabled:dark:border-gray-400;
   }
   .btn-outlined {
     @apply btn dark:bg-transparent dark:text-pc-200/80 dark:hover:text-white;
@@ -366,7 +366,7 @@
     @apply dark:bg-dark2 dark:hover:bg-dark1/50 border dark:border-dark2 rounded px-3 py-2 w-full flex items-center transition-colors focus:outline-none active:outline-none dark:focus:border-dark1/50 focus-within:outline-none focus-visible:outline-none;
   }
   .text-box {
-    @apply dark:bg-pc-200/50 dark:focus:bg-pc-200/80 border dark:border-pc-300/50 dark:hover:border-pc-300/80 dark:text-pc-900 focus:outline-none focus-visible:outline-none active:outline-none focus:border-pc-400/80 px-4 py-2 rounded;
+    @apply dark:bg-pc-200/50 dark:focus:bg-pc-200/80 border dark:border-pc-300/50 dark:hover:border-pc-300/80 dark:text-pc-900 focus:outline-none focus-visible:outline-none active:outline-none focus:border-pc-400/80 px-4 h-10 flex items-center rounded;
   }
 }
 
@@ -412,4 +412,8 @@
 }
 ::-webkit-scrollbar-thumb:hover {
   @apply dark:bg-dark3/80;
+}
+
+input#file-upload-button {
+  display: none !important;
 }
